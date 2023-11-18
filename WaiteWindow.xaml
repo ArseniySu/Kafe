@@ -1,0 +1,25 @@
+﻿<Window x:Class="Kafe.WaiteWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kafe"
+        mc:Ignorable="d"
+        Title="Официант" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <StackPanel>
+        <Button Content="Назад" Name="LogoutBtn1" Click="LogoutBtn1_Click" Width="150" Height="30" Margin="10"/>
+        <DataGrid Height="200" Name="WaiteDGrid" AutoGenerateColumns="False" ColumnWidth="*" SelectedCellsChanged="WaiteDGrid_SelectedCellsChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Номер заказа" Binding="{Binding IdOrder}"/>
+                <DataGridTextColumn Header="Блюдо" Binding = "{Binding Dish.DishName}"/>
+                <DataGridTextColumn Header="Стоимость" Binding = "{Binding Dish.Prise}"/>
+                <DataGridTextColumn Header="Время готовки" Binding = "{Binding Dish.Time}"/>
+                <DataGridTextColumn Header="Количество порций" Binding = "{Binding Count}"/>
+                <DataGridTextColumn Header="Статус оплаты" Binding = "{Binding StatusOrder.Status}"/>
+                <DataGridTextColumn Header="Статус готовности" Binding = "{Binding StatusCook.StCook}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Добавить новый зказ" Name="NewBtn" Click="NewBtn_Click" Width="150" Height="30" Margin="10"/>
+        <Button Content="Выгрузить заказ" Name="DuwdBtn" Click="DuwdBtn_Click" Width="150" Height="30" Margin="10"/>
+    </StackPanel>
+</Window>

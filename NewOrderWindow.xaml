@@ -1,0 +1,23 @@
+﻿<Window x:Class="Kafe.NewOrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kafe"
+        mc:Ignorable="d"
+        Title="NewOrderWindow" Height="450" Width="450" WindowStartupLocation="CenterScreen">
+    <StackPanel Margin="50">
+        <TextBlock Text="Заказ"/>
+        <TextBox Name="OrderTBox"/>
+        
+        <TextBlock Text="Блюдо"/>
+        <ComboBox Name="DisnNameTBox"
+                  DisplayMemberPath="DishName"
+                  SelectedValuePath="IdDish"/>
+        <TextBlock Text="Кол-во"/>
+        <TextBox Name="CountDishTBox"/>
+
+        <Button Content="Добавить" Name="editBtn" Click="editBtn_Click"/>
+        <Button Content="Назад" Name="BackBtn" Click="BackBtn_Click"/>
+    </StackPanel>
+</Window>

@@ -1,0 +1,416 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище KafeModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dish">
+          <Key>
+            <PropertyRef Name="IdDish" />
+          </Key>
+          <Property Name="IdDish" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DishName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Prise" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Time" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DishOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDish" Type="int" />
+          <Property Name="IdOrder" Type="int" Nullable="false" />
+          <Property Name="IdStCook" Type="int" />
+          <Property Name="IdStatus" Type="int" />
+          <Property Name="Count" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IdRole" />
+          </Key>
+          <Property Name="IdRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StatusCook">
+          <Key>
+            <PropertyRef Name="IdStCook" />
+          </Key>
+          <Property Name="IdStCook" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StCook" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StatusOrder">
+          <Key>
+            <PropertyRef Name="IdStatus" />
+          </Key>
+          <Property Name="IdStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pussword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Familia" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DishOrder_Dish1">
+          <End Role="Dish" Type="Self.Dish" Multiplicity="0..1" />
+          <End Role="DishOrder" Type="Self.DishOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dish">
+              <PropertyRef Name="IdDish" />
+            </Principal>
+            <Dependent Role="DishOrder">
+              <PropertyRef Name="IdDish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DishOrder_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="DishOrder" Type="Self.DishOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DishOrder">
+              <PropertyRef Name="IdOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DishOrder_StatusCook1">
+          <End Role="StatusCook" Type="Self.StatusCook" Multiplicity="0..1" />
+          <End Role="DishOrder" Type="Self.DishOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusCook">
+              <PropertyRef Name="IdStCook" />
+            </Principal>
+            <Dependent Role="DishOrder">
+              <PropertyRef Name="IdStCook" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DishOrder_StatusOrder1">
+          <End Role="StatusOrder" Type="Self.StatusOrder" Multiplicity="0..1" />
+          <End Role="DishOrder" Type="Self.DishOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusOrder">
+              <PropertyRef Name="IdStatus" />
+            </Principal>
+            <Dependent Role="DishOrder">
+              <PropertyRef Name="IdStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IdRole" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище KafeModelContainer">
+          <EntitySet Name="Dish" EntityType="Self.Dish" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DishOrder" EntityType="Self.DishOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusCook" EntityType="Self.StatusCook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusOrder" EntityType="Self.StatusOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DishOrder_Dish1" Association="Self.FK_DishOrder_Dish1">
+            <End Role="Dish" EntitySet="Dish" />
+            <End Role="DishOrder" EntitySet="DishOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DishOrder_Order" Association="Self.FK_DishOrder_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="DishOrder" EntitySet="DishOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DishOrder_StatusCook1" Association="Self.FK_DishOrder_StatusCook1">
+            <End Role="StatusCook" EntitySet="StatusCook" />
+            <End Role="DishOrder" EntitySet="DishOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DishOrder_StatusOrder1" Association="Self.FK_DishOrder_StatusOrder1">
+            <End Role="StatusOrder" EntitySet="StatusOrder" />
+            <End Role="DishOrder" EntitySet="DishOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KafeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DishOrder" Relationship="KafeModel.FK_DishOrder_Order" FromRole="Order" ToRole="DishOrder" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IdRole" />
+          </Key>
+          <Property Name="IdRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="StatusCook">
+          <Key>
+            <PropertyRef Name="IdStCook" />
+          </Key>
+          <Property Name="IdStCook" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StCook" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DishOrder" Relationship="KafeModel.FK_DishOrder_StatusCook1" FromRole="StatusCook" ToRole="DishOrder" />
+        </EntityType>
+        <EntityType Name="StatusOrder">
+          <Key>
+            <PropertyRef Name="IdStatus" />
+          </Key>
+          <Property Name="IdStatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DishOrder" Relationship="KafeModel.FK_DishOrder_StatusOrder1" FromRole="StatusOrder" ToRole="DishOrder" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pussword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Familia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role1" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IdRole" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KafeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Order" EntityType="Self.Order" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="StatusCook" EntityType="Self.StatusCook" />
+          <EntitySet Name="StatusOrder" EntityType="Self.StatusOrder" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <EntitySet Name="Dish" EntityType="KafeModel.Dish" />
+          <EntitySet Name="DishOrder" EntityType="KafeModel.DishOrder" />
+          <AssociationSet Name="FK_DishOrder_Dish1" Association="KafeModel.FK_DishOrder_Dish1">
+            <End Role="Dish" EntitySet="Dish" />
+            <End Role="DishOrder" EntitySet="DishOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DishOrder_Order" Association="KafeModel.FK_DishOrder_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="DishOrder" EntitySet="DishOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DishOrder_StatusCook1" Association="KafeModel.FK_DishOrder_StatusCook1">
+            <End Role="StatusCook" EntitySet="StatusCook" />
+            <End Role="DishOrder" EntitySet="DishOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DishOrder_StatusOrder1" Association="KafeModel.FK_DishOrder_StatusOrder1">
+            <End Role="StatusOrder" EntitySet="StatusOrder" />
+            <End Role="DishOrder" EntitySet="DishOrder" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Dish">
+          <Key>
+            <PropertyRef Name="IdDish" />
+          </Key>
+          <Property Name="IdDish" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DishName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Prise" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DishOrder" Relationship="KafeModel.FK_DishOrder_Dish1" FromRole="Dish" ToRole="DishOrder" />
+        </EntityType>
+        <EntityType Name="DishOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDish" Type="Int32" />
+          <Property Name="IdOrder" Type="Int32" Nullable="false" />
+          <Property Name="IdStCook" Type="Int32" />
+          <Property Name="IdStatus" Type="Int32" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dish" Relationship="KafeModel.FK_DishOrder_Dish1" FromRole="DishOrder" ToRole="Dish" />
+          <NavigationProperty Name="Order" Relationship="KafeModel.FK_DishOrder_Order" FromRole="DishOrder" ToRole="Order" />
+          <NavigationProperty Name="StatusCook" Relationship="KafeModel.FK_DishOrder_StatusCook1" FromRole="DishOrder" ToRole="StatusCook" />
+          <NavigationProperty Name="StatusOrder" Relationship="KafeModel.FK_DishOrder_StatusOrder1" FromRole="DishOrder" ToRole="StatusOrder" />
+        </EntityType>
+        <Association Name="FK_DishOrder_Dish1">
+          <End Type="KafeModel.Dish" Role="Dish" Multiplicity="0..1" />
+          <End Type="KafeModel.DishOrder" Role="DishOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dish">
+              <PropertyRef Name="IdDish" />
+            </Principal>
+            <Dependent Role="DishOrder">
+              <PropertyRef Name="IdDish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DishOrder_Order">
+          <End Type="KafeModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="KafeModel.DishOrder" Role="DishOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DishOrder">
+              <PropertyRef Name="IdOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DishOrder_StatusCook1">
+          <End Type="KafeModel.StatusCook" Role="StatusCook" Multiplicity="0..1" />
+          <End Type="KafeModel.DishOrder" Role="DishOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusCook">
+              <PropertyRef Name="IdStCook" />
+            </Principal>
+            <Dependent Role="DishOrder">
+              <PropertyRef Name="IdStCook" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DishOrder_StatusOrder1">
+          <End Type="KafeModel.StatusOrder" Role="StatusOrder" Multiplicity="0..1" />
+          <End Type="KafeModel.DishOrder" Role="DishOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusOrder">
+              <PropertyRef Name="IdStatus" />
+            </Principal>
+            <Dependent Role="DishOrder">
+              <PropertyRef Name="IdStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище KafeModelContainer" CdmEntityContainer="KafeEntities">
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="KafeModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OrName" ColumnName="OrName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="KafeModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+                <ScalarProperty Name="Role1" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusCook">
+            <EntityTypeMapping TypeName="KafeModel.StatusCook">
+              <MappingFragment StoreEntitySet="StatusCook">
+                <ScalarProperty Name="IdStCook" ColumnName="IdStCook" />
+                <ScalarProperty Name="StCook" ColumnName="StCook" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusOrder">
+            <EntityTypeMapping TypeName="KafeModel.StatusOrder">
+              <MappingFragment StoreEntitySet="StatusOrder">
+                <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="KafeModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Pussword" ColumnName="Pussword" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Familia" ColumnName="Familia" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dish">
+            <EntityTypeMapping TypeName="KafeModel.Dish">
+              <MappingFragment StoreEntitySet="Dish">
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Prise" ColumnName="Prise" />
+                <ScalarProperty Name="DishName" ColumnName="DishName" />
+                <ScalarProperty Name="IdDish" ColumnName="IdDish" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DishOrder">
+            <EntityTypeMapping TypeName="KafeModel.DishOrder">
+              <MappingFragment StoreEntitySet="DishOrder">
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+                <ScalarProperty Name="IdStCook" ColumnName="IdStCook" />
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+                <ScalarProperty Name="IdDish" ColumnName="IdDish" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
